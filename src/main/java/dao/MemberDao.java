@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -23,6 +26,25 @@ public class MemberDao {
 	
 	public MemberDao(DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
+	}
+	
+	public Collection<Member> selectBwRegdates(LocalDateTime from, LocalDateTime to){
+		Collection<Member> list = jdbcTemplate.query("select * from member where REGDATE between ? AND ?", 
+				new RowMapper<Member>() {
+
+					@Override
+					public Member mapRow(ResultSet rs, int rowNum) throws SQLException {
+						
+						Member member = new Member(rs.getString("email"), rs.getString("password"), rs.getString("name"), 
+								rs.getTimestamp("regdate").toLocalDateTime());
+						
+						member.setId(rs.getString("id"));
+						
+						return member;
+					}
+		}, from, to);
+		
+		return list;
 	}
 	
 	//what happens if the email does not exist? Not catching here. 
@@ -45,7 +67,25 @@ public class MemberDao {
 		
 		}catch(EmptyResultDataAccessException e) {
 			return null;
-		}	
+		}	 
+	}
+	
+	public Member selectById(int id) {
+		
+		List<Member> members = jdbcTemplate.query("select * from member where id = ?", new RowMapper<Member>() {
+
+			@Override
+			public Member mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Member member = new Member(rs.getString("email"), rs.getString("password"), rs.getString("name"),
+						rs.getTimestamp("regdate").toLocalDateTime());
+				
+				member.setId(rs.getString("id"));
+				return member;
+			}
+			
+		}, id);
+		
+		return (members.size() == 0)? null : members.get(0);
 	}
 	
 	//what happens if the email already exists in the table?

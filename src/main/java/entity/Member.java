@@ -2,12 +2,15 @@ package entity;
 
 import java.time.LocalDateTime;
 
-import exception.WrongIdPasswordException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import exception.WrongPasswordException;
 
 public class Member {
 
 	private String id;
 	private String email;
+	@JsonIgnore
 	private String password;
 	private String name;
 	private LocalDateTime registerDateTime;
@@ -53,9 +56,13 @@ public class Member {
 	
 	public void changePassword(String oldPassword, String newPassword) {
 		if(!password.equals(oldPassword)) {
-			throw new WrongIdPasswordException();
+			throw new WrongPasswordException();
 		}
 		
 		this.password = newPassword;
+	}
+	
+	public boolean matchPassword(String password) {
+		return this.password.equals(password);
 	}
 }

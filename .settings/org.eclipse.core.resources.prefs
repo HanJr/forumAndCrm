@@ -1,2 +1,3 @@
 eclipse.preferences.version=1
+encoding//src/main/resources/message/label_ko.properties=UTF-8
 encoding//src/main/webapp/WEB-INF/view/hello.jsp=UTF-8

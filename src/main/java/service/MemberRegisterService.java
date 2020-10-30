@@ -10,6 +10,7 @@ import commandInstance.RegisterRequest;
 import dao.MemberDao;
 import entity.Member;
 import exception.DuplicateMemberException;
+import exception.WrongPasswordException;
 
 @Component
 public class MemberRegisterService {
@@ -25,6 +26,10 @@ public class MemberRegisterService {
 	public Long regist(RegisterRequest req) {
 		if(memberDao.selectByEmail(req.getEmail()) != null) 
 			throw new DuplicateMemberException();
+		
+		if(!req.isPasswordEqualToConfirmPassword()) {
+			throw new WrongPasswordException();
+		}
 		
 		Member member = new Member(req.getEmail(), req.getPassword(), req.getName(),
 				LocalDateTime.now());

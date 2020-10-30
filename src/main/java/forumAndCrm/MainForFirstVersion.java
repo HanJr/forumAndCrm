@@ -10,7 +10,7 @@ import commandInstance.RegisterRequest;
 import config.AppConfig;
 import exception.DuplicateMemberException;
 import exception.MemberNotFoundException;
-import exception.WrongIdPasswordException;
+import exception.WrongPasswordException;
 import printer.MemberInfoPrinter;
 import printer.MemberListPrinter;
 import service.ChangePasswordService;
@@ -91,7 +91,7 @@ public class MainForFirstVersion {
 			System.out.println("The password is changed.");
 		}catch(MemberNotFoundException e) {
 			System.out.println("The member that has the given email does not exist.");
-		}catch(WrongIdPasswordException e) {
+		}catch(WrongPasswordException e) {
 			System.out.println("The current password is wrong.");
 		}
 	}

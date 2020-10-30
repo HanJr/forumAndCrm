@@ -6,6 +6,6 @@
 	</head>
 	
 	<body>
-		인사말: ${greeting}
+		Greeting: ${greeting}
 	</body>
 </html>

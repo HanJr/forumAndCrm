@@ -8,6 +8,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import dao.ForumDao;
 import dao.MemberDao;
 import printer.MemberInfoPrinter;
 import printer.MemberListPrinter;
@@ -21,6 +22,11 @@ public class AppConfig {
 	@Bean
 	public MemberDao memberDao() {
 		return new MemberDao(dataSource());
+	}
+	
+	@Bean
+	public ForumDao forumDao() {
+		return new ForumDao(dataSource());
 	}
 	
 	@Bean
