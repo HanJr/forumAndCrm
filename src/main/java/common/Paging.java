@@ -74,7 +74,7 @@ public class Paging {
 		this.totalNumOfArticles = totalNumOfArticles;
 		
 		//Total number of pages
-		this.totalPageCnt = (int) Math.ceil(totalNumOfArticles/articlesPerPage);
+		this.totalPageCnt = (int) Math.ceil((double)totalNumOfArticles/articlesPerPage);
 		
 		//Starting page of the block
 		this.startingPageNum = (currentBlock - 1) * displayingPagePerBlock + 1;

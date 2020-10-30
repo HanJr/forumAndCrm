@@ -16,7 +16,7 @@
 	
 	<body>
 		
-		<button id="composeArticle" type="button"><spring:message code="writeArticle"/></button>
+		<button onclick="moveToComposingPage('${pagination.currentPage}', '${pagination.currentBlock}')"><spring:message code="writeArticle"/></button>
 
 		<c:if test="${not empty error}">
 			<span class="error"><spring:message code="loginRequestMessage"/></span>
@@ -34,7 +34,7 @@
 			<c:forEach var="article" items="${articleList}">
 				<tr>
 					<td>${article.articleID}</td>
-					<td><a href="<c:url value='/forum/viewArticle/${article.articleID}'/>">${article.title}</a></td>
+					<td><a href="<c:url value='/forum/viewArticle/${article.articleID}?currentPage=${pagination.currentPage}&currentBlock=${pagination.currentBlock}'/>">${article.title}</a></td>
 					<td>${article.name}</td>
 					<td>${article.viewNum}</td>
 					<td><tags:formatDateTime value="${article.createdDate}"/></td>

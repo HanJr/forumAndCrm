@@ -1,5 +1,7 @@
 package test;
 
+import java.util.concurrent.TimeUnit;
+
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import config.AppConfig;
@@ -13,7 +15,7 @@ import variableObject.AuthInfo;
 
 public class ArticleListCreator {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 		
@@ -23,10 +25,12 @@ public class ArticleListCreator {
 		AuthInfo authInfo = new AuthInfo("sam1506@gmail.com", "sam", 2);
 		
 			
-		for(int i = 1; i < 50; i++) {
-			article.setTitle("The article number " + 500 + i);
-			article.setArticleContents("The content number " + 500 + i);
+		for(int i = 1; i < 258; i++) {
+			article.setTitle("The article number " + i);
+			article.setArticleContents("The content number " +i);
 			dao.insertArticle(article, authInfo);
+			
+			TimeUnit.SECONDS.sleep(10);
 		}
 		context.close();
 	}

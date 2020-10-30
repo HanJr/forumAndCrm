@@ -30,5 +30,8 @@
 			
 			<input type="submit" value="<spring:message code='article.register'/>">
 		</form:form>
+		<button onclick="backToList('${currentPage}', '${currentBlock}')">Back to list</button>
 	</body>
+	
+	<script src="<c:url value='/resources/static/js/button.js'/>"></script>	
 </html>

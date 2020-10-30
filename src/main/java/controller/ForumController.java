@@ -58,7 +58,7 @@ public class ForumController {
 	}
 	
 	@GetMapping("/composeArticle")
-	public String composeArticle(Model model, HttpSession session) {
+	public String composeArticle(Model model, HttpSession session, @RequestParam("currentPage") int currentPage, @RequestParam("currentBlock") int currentBlock) {
 		
 		if(session.getAttribute("authInfo") == null) {
 			model.addAttribute("error", "Login is required");
@@ -69,6 +69,9 @@ public class ForumController {
 		newArticle.setAuthor(((AuthInfo) session.getAttribute("authInfo")).getName());
 		
 		model.addAttribute("newArticle", newArticle);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("currentBlock", currentBlock);
+		
 		return "forum/newArticleForm";
 	}
 	
@@ -101,10 +104,12 @@ public class ForumController {
 	}
 	
 	@GetMapping("/editArticle")
-	public String editArticle(@RequestParam("id") long id, Model model) {
+	public String editArticle(@RequestParam("id") long id, Model model, @RequestParam("currentPage") int currentPage, @RequestParam("currentBlock") int currentBlock) {
 		
 		ForumArticle article = dao.getArticle(id);	
 		
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("currentBlock", currentBlock);			
 		model.addAttribute("article", article);
 		return "forum/editArticleForm";
 	}
@@ -118,7 +123,7 @@ public class ForumController {
 	}
 	
 	@GetMapping("/viewArticle/{articleId}")
-	public String viewArticle(@PathVariable("articleId") Long id, Model model, HttpSession session) {
+	public String viewArticle(@PathVariable("articleId") Long id, Model model, HttpSession session, @RequestParam("currentPage") int currentPage, @RequestParam("currentBlock") int currentBlock) {
 		
 		ForumArticle article = dao.getArticle(id);
 		article.setViewNum(article.getViewNum() + 1);
@@ -129,6 +134,8 @@ public class ForumController {
 			model.addAttribute("authInfo", authInfo);
 		}
 		
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("currentBlock", currentBlock);		
 		model.addAttribute("article", article);
 		
 		return "forum/articleViewer";

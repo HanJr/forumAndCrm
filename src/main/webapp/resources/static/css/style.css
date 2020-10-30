@@ -18,20 +18,18 @@ textarea{
 li.page-item{
 	box-sizing: border-box;
 	display: inline-block;
-	padding: 0px;
-	width: 8%;
+	width: 7%;
 	text-align: center;
 	list-style: none;
 	font-size: 15px;
 }
 
 li.page-item.prev{
-	width: 10%;	
+	width: 15%;
 }
 
 li.page-item.next{
-	width: 10%;
-	border-right-width: 1px;	
+	width: 15%;
 }
 
 li.page-item.active{

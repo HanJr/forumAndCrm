@@ -17,9 +17,9 @@
 		<c:if test="${not empty authInfo && authInfo.id == article.memberId}">
 			<script>var id = ${article.articleID}</script>
 			<button id="deleteArticleButton">delete</button>
-			<button id="editArticleButton">edit</button>
+			<button onclick="editArticle('${currentPage}', '${currentBlock}')">edit</button>
 		</c:if>
-		<button id="backToListButton">Back to list</button>
+		<button onclick="backToList('${currentPage}', '${currentBlock}')">Back to list</button>
 		
 		<hr id="articleContentHr"/>
 		
